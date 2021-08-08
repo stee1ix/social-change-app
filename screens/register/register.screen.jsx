@@ -6,6 +6,7 @@ import {
 	ImageBackground,
 	Dimensions,
 	TouchableOpacity,
+	KeyboardAvoidingView,
 } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
@@ -17,70 +18,73 @@ const RegisterScreen = ({ navigation }) => {
 		<ImageBackground
 			source={require('../../assets/background.jpeg')}
 			style={styles.backgroundImage}>
-			<View style={styles.loginWrapper}>
-				<TextInput
-					style={[styles.inputWrapper, { marginTop: 20 }]}
-					mode="flat"
-					placeholder="Name"
-					textContentType="name"
-					underlineColor="transparent"
-					theme={{ colors: { primary: 'transparent' } }}
-				/>
-				<TextInput
-					style={styles.inputWrapper}
-					mode="flat"
-					placeholder="Email"
-					textContentType="emailAddress"
-					underlineColor="transparent"
-					theme={{ colors: { primary: 'transparent' } }}
-				/>
-				<TextInput
-					style={styles.inputWrapper}
-					mode="flat"
-					placeholder="Username"
-					textContentType="username"
-					underlineColor="transparent"
-					theme={{ colors: { primary: 'transparent' } }}
-				/>
-				<TextInput
-					style={styles.inputWrapper}
-					mode="flat"
-					placeholder="Password"
-					textContentType="newPassword"
-					underlineColor="transparent"
-					theme={{ colors: { primary: 'transparent' } }}
-					secureTextEntry={true}
-					right={<TextInput.Icon size={20} name="eye" />}
-				/>
-				<Button
-					mode="contained"
-					onPress={() => console.log('Signed Up')}
-					uppercase={false}
-					color="#027aff"
-					style={styles.loginButton}>
-					Signup
-				</Button>
-				<View style={styles.horizontalRule} />
-				<Text style={styles.otherLoginOptionsText}>
-					Or Signup Using
-				</Text>
-				<TouchableOpacity style={styles.googleLogo}>
-					<AntDesign
-						name="google"
-						size={32}
-						color="rgba(255,255,255,0.9)"
+			<KeyboardAvoidingView behavior="height" enabled={true}>
+				<View style={styles.loginWrapper}>
+					<TextInput
+						style={[styles.inputWrapper, { marginTop: 20 }]}
+						mode="flat"
+						placeholder="Name"
+						textContentType="name"
+						underlineColor="transparent"
+						theme={{ colors: { primary: 'transparent' } }}
 					/>
-				</TouchableOpacity>
-				<View style={styles.loginMessageWrapper}>
-					<Text style={styles.loginMessage}>
-						Already have an account?
+
+					<TextInput
+						style={styles.inputWrapper}
+						mode="flat"
+						placeholder="Email"
+						textContentType="emailAddress"
+						underlineColor="transparent"
+						theme={{ colors: { primary: 'transparent' } }}
+					/>
+					<TextInput
+						style={styles.inputWrapper}
+						mode="flat"
+						placeholder="Username"
+						textContentType="username"
+						underlineColor="transparent"
+						theme={{ colors: { primary: 'transparent' } }}
+					/>
+					<TextInput
+						style={styles.inputWrapper}
+						mode="flat"
+						placeholder="Password"
+						textContentType="newPassword"
+						underlineColor="transparent"
+						theme={{ colors: { primary: 'transparent' } }}
+						secureTextEntry={true}
+						right={<TextInput.Icon size={20} name="eye" />}
+					/>
+					<Button
+						mode="contained"
+						onPress={() => console.log('Signed Up')}
+						uppercase={false}
+						color="#027aff"
+						style={styles.loginButton}>
+						Signup
+					</Button>
+					<View style={styles.horizontalRule} />
+					<Text style={styles.otherLoginOptionsText}>
+						Or Signup Using
 					</Text>
-					<TouchableOpacity
-						onPress={() => navigation.navigate('LoginScreen')}>
-						<Text style={styles.loginButton}>Login</Text>
+					<TouchableOpacity style={styles.googleLogo}>
+						<AntDesign
+							name="google"
+							size={32}
+							color="rgba(255,255,255,0.9)"
+						/>
 					</TouchableOpacity>
+					<View style={styles.loginMessageWrapper}>
+						<Text style={styles.loginMessage}>
+							Already have an account?
+						</Text>
+						<TouchableOpacity
+							onPress={() => navigation.navigate('LoginScreen')}>
+							<Text style={styles.loginButton}>Login</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
-			</View>
+			</KeyboardAvoidingView>
 		</ImageBackground>
 	);
 };

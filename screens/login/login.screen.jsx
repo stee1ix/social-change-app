@@ -7,6 +7,7 @@ import {
 	ImageBackground,
 	Dimensions,
 	TouchableOpacity,
+	KeyboardAvoidingView,
 } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
@@ -18,59 +19,65 @@ const LoginScreen = ({ navigation }) => {
 		<ImageBackground
 			source={require('../../assets/background.jpeg')}
 			style={styles.backgroundImage}>
-			<View style={styles.loginWrapper}>
-				<View style={styles.logoWrapper}>
-					<Image
-						source={require('../../assets/logo.png')}
-						style={styles.logoImage}
+			<KeyboardAvoidingView behavior="height" enabled={true}>
+				<View style={styles.loginWrapper}>
+					<View style={styles.logoWrapper}>
+						<Image
+							source={require('../../assets/logo.png')}
+							style={styles.logoImage}
+						/>
+						<Text style={styles.logoText}>SOCIAL CHANGE</Text>
+					</View>
+					<TextInput
+						style={styles.inputWrapper}
+						mode="flat"
+						placeholder="Username"
+						textContentType="username"
+						underlineColor="transparent"
+						theme={{ colors: { primary: 'transparent' } }}
 					/>
-					<Text style={styles.logoText}>SOCIAL CHANGE</Text>
-				</View>
-				<TextInput
-					style={styles.inputWrapper}
-					mode="flat"
-					placeholder="Username"
-					textContentType="username"
-					underlineColor="transparent"
-					theme={{ colors: { primary: 'transparent' } }}
-				/>
-				<TextInput
-					style={styles.inputWrapper}
-					mode="flat"
-					placeholder="Password"
-					textContentType="password"
-					underlineColor="transparent"
-					theme={{ colors: { primary: 'transparent' } }}
-					secureTextEntry={true}
-					right={<TextInput.Icon size={20} name="eye" />}
-				/>
-				<Button
-					mode="contained"
-					onPress={() => console.log('Logged In')}
-					uppercase={false}
-					color="#027aff"
-					style={styles.loginButton}>
-					Login
-				</Button>
-				<View style={styles.horizontalRule} />
-				<Text style={styles.otherLoginOptionsText}>Or Login Using</Text>
-				<TouchableOpacity style={styles.googleLogo}>
-					<AntDesign
-						name="google"
-						size={32}
-						color="rgba(255,255,255,0.9)"
+					<TextInput
+						style={styles.inputWrapper}
+						mode="flat"
+						placeholder="Password"
+						textContentType="password"
+						underlineColor="transparent"
+						theme={{ colors: { primary: 'transparent' } }}
+						secureTextEntry={true}
+						right={<TextInput.Icon size={20} name="eye" />}
 					/>
-				</TouchableOpacity>
-				<View style={styles.registerMessageWrapper}>
-					<Text style={styles.registerMessage}>
-						Don't have an account?
+					<Button
+						mode="contained"
+						onPress={() => console.log('Logged In')}
+						uppercase={false}
+						color="#027aff"
+						style={styles.loginButton}>
+						Login
+					</Button>
+					<View style={styles.horizontalRule} />
+					<Text style={styles.otherLoginOptionsText}>
+						Or Login Using
 					</Text>
-					<TouchableOpacity
-						onPress={() => navigation.navigate('RegisterScreen')}>
-						<Text style={styles.registerButton}>Regsiter</Text>
+					<TouchableOpacity style={styles.googleLogo}>
+						<AntDesign
+							name="google"
+							size={32}
+							color="rgba(255,255,255,0.9)"
+						/>
 					</TouchableOpacity>
+					<View style={styles.registerMessageWrapper}>
+						<Text style={styles.registerMessage}>
+							Don't have an account?
+						</Text>
+						<TouchableOpacity
+							onPress={() =>
+								navigation.navigate('RegisterScreen')
+							}>
+							<Text style={styles.registerButton}>Regsiter</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
-			</View>
+			</KeyboardAvoidingView>
 		</ImageBackground>
 	);
 };
