@@ -13,24 +13,13 @@ import { Avatar } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import storiesData from '../../assets/data/storiesData';
 import { spaces, colors } from '../../assets/values';
+import StoryItem from './components/storyItem';
 
 const width = Dimensions.get('window').width;
 
 const HomeScreen = ({ navigation }) => {
 	const renderStoriesItem = ({ item, index }) => {
-		return (
-			<TouchableOpacity>
-				<Avatar
-					source={require('../../assets/images/storyIcon.png')}
-					rounded
-					title="S"
-					containerStyle={[
-						styles.storyItem,
-						index === 0 ? { marginLeft: spaces.sm } : null,
-					]}
-				/>
-			</TouchableOpacity>
-		);
+		return <StoryItem item={item} index={index} />;
 	};
 
 	return (
@@ -54,11 +43,6 @@ const styles = StyleSheet.create({
 	},
 	storiesWrapper: {
 		marginVertical: spaces.sm,
-	},
-	storyItem: {
-		marginRight: spaces.md,
-		width: 60,
-		height: 60,
 	},
 });
 
