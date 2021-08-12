@@ -7,12 +7,12 @@ const StoryItem = ({ item, index }) => {
 	const [seen, setSeen] = useState(false);
 
 	return (
-		<TouchableOpacity>
+		<TouchableOpacity onPress={() => setSeen(true)}>
 			<Avatar
 				source={require('../../../assets/images/storyIcon.png')}
 				rounded
 				title="S"
-				avatarStyle={styles.avatarStyle}
+				avatarStyle={!seen ? styles.notSeen : null}
 				containerStyle={[
 					styles.containerStyle,
 					index === 0 ? { marginLeft: spaces.sm } : null,
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 		width: 60,
 		height: 60,
 	},
-	avatarStyle: {
+	notSeen: {
 		borderRadius: 50,
 		borderWidth: 2,
 		borderColor: colors.blue,
