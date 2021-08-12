@@ -10,13 +10,14 @@ import {
 } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
+import { colors, spaces } from '../../assets/values';
 
 const width = Dimensions.get('window').width;
 
 const RegisterScreen = ({ navigation }) => {
 	return (
 		<ImageBackground
-			source={require('../../assets/background.jpeg')}
+			source={require('../../assets/images/background2.png')}
 			style={styles.backgroundImage}>
 			<KeyboardAvoidingView behavior="height" enabled={true}>
 				<View style={styles.loginWrapper}>
@@ -59,7 +60,7 @@ const RegisterScreen = ({ navigation }) => {
 						mode="contained"
 						onPress={() => console.log('Signed Up')}
 						uppercase={false}
-						color="#027aff"
+						color={colors.blue}
 						style={styles.loginButton}>
 						Signup
 					</Button>
@@ -71,7 +72,7 @@ const RegisterScreen = ({ navigation }) => {
 						<AntDesign
 							name="google"
 							size={32}
-							color="rgba(255,255,255,0.9)"
+							color={colors.white9}
 						/>
 					</TouchableOpacity>
 					<View style={styles.loginMessageWrapper}>
@@ -96,34 +97,34 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	loginWrapper: {
-		backgroundColor: 'rgba(255,255,255,0.35)',
+		// backgroundColor: 'rgba(255,255,255,0.35)',
 		width: width - 30,
 		height: 520,
-		borderRadius: 10,
-		paddingHorizontal: 20,
+		borderRadius: spaces.sm,
+		paddingHorizontal: spaces.md,
 	},
 	loginButton: {
 		borderRadius: 5,
 	},
 	inputWrapper: {
-		backgroundColor: 'rgba(255,255,255,0.35)',
+		backgroundColor: colors.white35,
 		borderRadius: 5,
-		marginBottom: 20,
+		marginBottom: spaces.md,
 		height: 50,
 		borderBottomWidth: 0,
 	},
 	horizontalRule: {
 		borderBottomWidth: 1,
-		borderBottomColor: 'rgba(255,255,255,0.35)',
-		marginVertical: 20,
+		borderBottomColor: colors.white35,
+		marginVertical: spaces.md,
 	},
 	otherLoginOptionsText: {
 		alignSelf: 'center',
-		color: 'rgba(255,255,255,0.7)',
+		color: colors.white7,
 	},
 	googleLogo: {
 		alignSelf: 'center',
-		marginVertical: 20,
+		marginVertical: spaces.md,
 		width: 32,
 	},
 	loginMessageWrapper: {
@@ -131,12 +132,12 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 	},
 	loginMessage: {
-		color: 'rgba(255,255,255,0.7)',
+		color: colors.white7,
 		marginRight: 5,
 	},
 	loginButton: {
 		fontWeight: 'bold',
-		color: 'rgba(255,255,255,0.9)',
+		color: colors.white9,
 	},
 });
 

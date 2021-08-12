@@ -11,13 +11,14 @@ import {
 } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
+import { colors, spaces } from '../../assets/values';
 
 const width = Dimensions.get('window').width;
 
 const LoginScreen = ({ navigation }) => {
 	return (
 		<ImageBackground
-			source={require('../../assets/background.jpeg')}
+			source={require('../../assets/images/background2.png')}
 			style={styles.backgroundImage}>
 			<KeyboardAvoidingView behavior="height" enabled={true}>
 				<View style={styles.loginWrapper}>
@@ -48,9 +49,9 @@ const LoginScreen = ({ navigation }) => {
 					/>
 					<Button
 						mode="contained"
-						onPress={() => console.log('Logged In')}
+						onPress={() => navigation.navigate('HomeScreen')}
 						uppercase={false}
-						color="#027aff"
+						color={colors.blue}
 						style={styles.loginButton}>
 						Login
 					</Button>
@@ -62,7 +63,7 @@ const LoginScreen = ({ navigation }) => {
 						<AntDesign
 							name="google"
 							size={32}
-							color="rgba(255,255,255,0.9)"
+							color={colors.white9}
 						/>
 					</TouchableOpacity>
 					<View style={styles.registerMessageWrapper}>
@@ -89,11 +90,11 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	loginWrapper: {
-		backgroundColor: 'rgba(255,255,255,0.35)',
+		// backgroundColor: 'rgba(255,255,255,0.35)',
 		width: width - 30,
 		height: 550,
-		borderRadius: 10,
-		paddingHorizontal: 20,
+		borderRadius: spaces.sm,
+		paddingHorizontal: spaces.md,
 	},
 	logoWrapper: {
 		flexDirection: 'row',
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
 		height: 80,
 		alignSelf: 'center',
 		marginVertical: 50,
-		marginRight: 10,
+		marginRight: spaces.sm,
 	},
 	logoText: {
 		color: '#fff',
@@ -115,24 +116,24 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 	},
 	inputWrapper: {
-		backgroundColor: 'rgba(255,255,255,0.35)',
+		backgroundColor: colors.white35,
 		borderRadius: 5,
-		marginBottom: 20,
+		marginBottom: spaces.md,
 		height: 50,
 		borderBottomWidth: 0,
 	},
 	horizontalRule: {
 		borderBottomWidth: 1,
-		borderBottomColor: 'rgba(255,255,255,0.35)',
-		marginVertical: 20,
+		borderBottomColor: colors.white35,
+		marginVertical: spaces.md,
 	},
 	otherLoginOptionsText: {
 		alignSelf: 'center',
-		color: 'rgba(255,255,255,0.7)',
+		color: colors.white7,
 	},
 	googleLogo: {
 		alignSelf: 'center',
-		marginVertical: 20,
+		marginVertical: spaces.md,
 		width: 32,
 	},
 	registerMessageWrapper: {
@@ -140,12 +141,12 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 	},
 	registerMessage: {
-		color: 'rgba(255,255,255,0.7)',
+		color: colors.white7,
 		marginRight: 5,
 	},
 	registerButton: {
 		fontWeight: 'bold',
-		color: 'rgba(255,255,255,0.9)',
+		color: colors.white9,
 	},
 });
 
