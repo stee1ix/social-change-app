@@ -12,23 +12,26 @@ const Stack = createNativeStackNavigator();
 export default function App() {
 	return (
 		<>
-			<StatusBar style="light" />
 			<SafeAreaProvider>
 				<NavigationContainer>
-					<Stack.Navigator
-						initialRouteName="LoginScreen"
-						screenOptions={{ headerShown: false }}>
+					<Stack.Navigator initialRouteName="LoginScreen">
 						<Stack.Screen
 							name="LoginScreen"
 							component={LoginScreen}
+							options={{ headerShown: false }}
 						/>
 						<Stack.Screen
 							name="RegisterScreen"
 							component={RegisterScreen}
+							options={{ headerShown: false }}
 						/>
 						<Stack.Screen
 							name="HomeScreen"
 							component={HomeScreen}
+							options={{
+								headerTitle: 'Social Change',
+								headerBackVisible: false,
+							}}
 						/>
 					</Stack.Navigator>
 				</NavigationContainer>
