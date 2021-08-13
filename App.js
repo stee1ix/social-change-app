@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './screens/login/login.screen';
 import HomeScreen from './screens/home/home.screen';
 import RegisterScreen from './screens/register/register.screen';
+import Header from './screens/home/components/Header';
 
 const Stack = createNativeStackNavigator();
 
@@ -29,8 +30,9 @@ export default function App() {
 							name="HomeScreen"
 							component={HomeScreen}
 							options={{
-								headerTitle: 'Social Change',
+								// headerTitle: 'Social Change',
 								headerBackVisible: false,
+								headerTitle: () => <Header />,
 							}}
 						/>
 					</Stack.Navigator>

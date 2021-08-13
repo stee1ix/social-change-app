@@ -27,6 +27,7 @@ export default StoryItem;
 const styles = StyleSheet.create({
 	containerStyle: {
 		marginRight: spaces.md,
+		marginVertical: spaces.sm,
 		width: 60,
 		height: 60,
 	},
