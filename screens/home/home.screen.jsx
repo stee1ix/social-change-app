@@ -26,13 +26,9 @@ const HomeScreen = ({ navigation }) => {
 		return <StoryItem item={item} index={index} />;
 	};
 
-	const renderPostItem = ({ item, index }) => {
-		return <Post />;
-	};
-
 	return (
 		<View style={styles.conatiner}>
-			<ScrollView>
+			<ScrollView showsVerticalScrollIndicator={false}>
 				<View style={styles.storiesWrapper}>
 					<FlatList
 						data={storiesData}
@@ -45,9 +41,9 @@ const HomeScreen = ({ navigation }) => {
 				<View style={styles.postsWrapper}>
 					{postsData.map((item, index) => {
 						return (
-							<View>
+							<View key={index}>
 								<Divider style={{ borderBottomWidth: 1 }} />
-								<Post key={index} />
+								<Post />
 							</View>
 						);
 					})}
@@ -59,6 +55,7 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
 	conatiner: {
+		backgroundColor: 'white',
 		flex: 1,
 	},
 	storiesWrapper: {

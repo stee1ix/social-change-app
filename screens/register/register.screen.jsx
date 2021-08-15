@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 	},
 	inputWrapper: {
-		backgroundColor: colors.white35,
+		backgroundColor: colors.white9,
 		borderRadius: 5,
 		marginBottom: spaces.md,
 		height: 50,

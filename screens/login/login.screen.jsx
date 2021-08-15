@@ -49,7 +49,7 @@ const LoginScreen = ({ navigation }) => {
 					/>
 					<Button
 						mode="contained"
-						onPress={() => navigation.navigate('HomeScreen')}
+						onPress={() => navigation.navigate('HomeDrawer')}
 						uppercase={false}
 						color={colors.blue}
 						style={styles.loginButton}>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 	},
 	inputWrapper: {
-		backgroundColor: colors.white35,
+		backgroundColor: colors.white9,
 		borderRadius: 5,
 		marginBottom: spaces.md,
 		height: 50,
