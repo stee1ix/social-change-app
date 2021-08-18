@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import { TextInput, FAB } from 'react-native-paper';
 import { colors, font, spaces } from '../../assets/values';
 import { Avatar } from 'react-native-elements';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const EditScreen = () => {
@@ -37,7 +36,7 @@ const EditScreen = () => {
 				<Text style={styles.usernameText}>user123</Text>
 			</View>
 			<TextInput
-				mode="flat"
+				mode="outlined"
 				label="Name"
 				defaultValue="User Kumar"
 				textContentType="name"
@@ -45,7 +44,7 @@ const EditScreen = () => {
 				theme={{ colors: { primary: colors.blue } }}
 			/>
 			<TextInput
-				mode="flat"
+				mode="outlined"
 				label="Bio"
 				defaultValue="helloo my name ishelloo my name ishelloo my name is"
 				multiline={true}
@@ -53,7 +52,7 @@ const EditScreen = () => {
 				theme={{ colors: { primary: colors.blue } }}
 			/>
 			<TextInput
-				mode="flat"
+				mode="outlined"
 				label="Date of Birth"
 				value={date.toLocaleDateString()}
 				editable={false}
@@ -94,7 +93,7 @@ const styles = StyleSheet.create({
 	settingsWrapper: {
 		flex: 1,
 		backgroundColor: '#fff',
-		paddingHorizontal: spaces.sm,
+		paddingHorizontal: spaces.smd,
 	},
 	profileIconWrapper: {
 		alignSelf: 'center',

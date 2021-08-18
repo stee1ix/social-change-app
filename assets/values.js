@@ -1,6 +1,7 @@
 export const spaces = {
 	ssm: 5,
 	sm: 10,
+	smd: 15,
 	md: 20,
 	lg: 30,
 	xl: 40,

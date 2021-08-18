@@ -8,7 +8,11 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 import { spaces } from '../../../assets/values';
-import { FontAwesome, Feather } from '@expo/vector-icons';
+import {
+	FontAwesome,
+	Feather,
+	MaterialCommunityIcons,
+} from '@expo/vector-icons';
 
 const width = Dimensions.get('window').width;
 
@@ -18,11 +22,20 @@ const Post = () => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.topbarWrapper}>
-				<Image
-					source={require('../../../assets/images/storyIcon.png')}
-					style={styles.icon}
-				/>
-				<Text style={styles.username}>user_123</Text>
+				<View style={styles.usernameImageWrapper}>
+					<Image
+						source={require('../../../assets/images/storyIcon.png')}
+						style={styles.icon}
+					/>
+					<Text style={styles.username}>user_123</Text>
+				</View>
+				<TouchableOpacity style={styles.postOptionsIcon}>
+					<MaterialCommunityIcons
+						name="dots-vertical"
+						size={20}
+						color="black"
+					/>
+				</TouchableOpacity>
 			</View>
 			<Image
 				source={require('../../../assets/images/post.png')}
@@ -57,14 +70,15 @@ export default Post;
 
 const styles = StyleSheet.create({
 	container: {
-		// borderTopWidth: 1,
-		// borderBottomWidth: 1,
 		margin: spaces.sm,
 		marginBottom: spaces.lg,
-		// borderColor: 'black',
-		// borderWidth: 1,
 	},
 	topbarWrapper: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+	},
+	usernameImageWrapper: {
 		flexDirection: 'row',
 		alignItems: 'center',
 	},
@@ -73,9 +87,9 @@ const styles = StyleSheet.create({
 		width: 30,
 		height: 30,
 		marginHorizontal: spaces.sm,
-		// marginVertical: spaces.sm,
 	},
 	username: {},
+	postOptionsIcon: {},
 	image: {
 		width: '100%',
 		height: width,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Dimensions, View } from 'react-native';
+import { Text, Dimensions, View, Image } from 'react-native';
 import {
 	createDrawerNavigator,
 	DrawerContentScrollView,
@@ -11,6 +11,7 @@ import { colors, font, spaces } from '../../assets/values';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import SettingScreen from '../settings/settings.screen';
 import EditScreen from '../edit/edit.screens';
+import { TouchableOpacity } from 'react-native';
 
 const width = Dimensions.get('window').width;
 
@@ -66,6 +67,15 @@ const HomeDrawer = () => {
 				headerTitle: 'SOCIAL CHANGE',
 				drawerType: 'slide',
 				drawerStyle: { width: width * 0.5 },
+				headerRight: () => (
+					<TouchableOpacity>
+						<Ionicons name="search" size={24} color="black" />
+					</TouchableOpacity>
+				),
+				headerRightContainerStyle: {
+					marginRight: spaces.sm,
+					marginLeft: -10,
+				},
 			}}
 			drawerContent={props => <LogoutOption {...props} />}>
 			<Drawer.Screen
