@@ -22,14 +22,16 @@ const Post = () => {
 					source={require('../../../assets/images/storyIcon.png')}
 					style={styles.icon}
 				/>
-				<Text style={styles.text}>user_123</Text>
+				<Text style={styles.username}>user_123</Text>
 			</View>
 			<Image
 				source={require('../../../assets/images/post.png')}
 				style={styles.image}
 			/>
 			<View style={styles.optionsWrapper}>
-				<TouchableOpacity onPress={() => setliked(!liked)}>
+				<TouchableOpacity
+					onPress={() => setliked(!liked)}
+					style={{ marginHorizontal: spaces.sm }}>
 					{liked ? (
 						<FontAwesome name="heart" size={24} color="red" />
 					) : (
@@ -37,12 +39,16 @@ const Post = () => {
 					)}
 				</TouchableOpacity>
 				<Text>67 likes</Text>
-				<Feather name="message-circle" size={24} color="black" />
+				<TouchableOpacity style={{ marginHorizontal: spaces.sm }}>
+					<Feather name="message-circle" size={24} color="black" />
+				</TouchableOpacity>
 			</View>
-			<Text>
-				Hobby projects and how they helped him in cracking interviews.
-				Rachit goes on to explain how once can go about
-			</Text>
+			<View style={styles.captionWrapper}>
+				<Text style={styles.captionText}>
+					Hobby projects and how they helped him in cracking
+					interviews. Rachit goes on to explain how once can go about
+				</Text>
+			</View>
 		</View>
 	);
 };
@@ -53,6 +59,10 @@ const styles = StyleSheet.create({
 	container: {
 		// borderTopWidth: 1,
 		// borderBottomWidth: 1,
+		margin: spaces.sm,
+		marginBottom: spaces.lg,
+		// borderColor: 'black',
+		// borderWidth: 1,
 	},
 	topbarWrapper: {
 		flexDirection: 'row',
@@ -63,14 +73,22 @@ const styles = StyleSheet.create({
 		width: 30,
 		height: 30,
 		marginHorizontal: spaces.sm,
+		// marginVertical: spaces.sm,
 	},
-	text: {},
+	username: {},
 	image: {
-		width: width,
+		width: '100%',
 		height: width,
 		resizeMode: 'contain',
+		borderRadius: spaces.sm,
 	},
 	optionsWrapper: {
 		flexDirection: 'row',
+		paddingVertical: spaces.sm,
+		alignItems: 'center',
 	},
+	captionWrapper: {
+		paddingHorizontal: spaces.sm,
+	},
+	captionText: {},
 });

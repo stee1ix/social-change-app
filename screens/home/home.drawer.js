@@ -9,13 +9,12 @@ import {
 import HomeNavigator from './home.navigator';
 import { colors, font, spaces } from '../../assets/values';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
+import SettingScreen from '../settings/settings.screen';
+import EditScreen from '../edit/edit.screens';
 
 const width = Dimensions.get('window').width;
 
 const Drawer = createDrawerNavigator();
-
-const SettingScreen = () => <Text>SettingScreen</Text>;
-const EditScreen = () => <Text>EditScreen</Text>;
 
 const LogoutOption = props => {
 	return (
