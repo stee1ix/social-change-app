@@ -62,9 +62,9 @@ const styles = StyleSheet.create({
 	tabBarStyle: {
 		position: 'absolute',
 		height: 50,
-		right: spaces.smd,
-		left: spaces.smd,
-		bottom: spaces.smd,
+		right: spaces.sm,
+		left: spaces.sm,
+		bottom: spaces.sm,
 		borderRadius: 10,
 	},
 });

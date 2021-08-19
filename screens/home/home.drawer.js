@@ -68,14 +68,10 @@ const HomeDrawer = () => {
 				drawerType: 'slide',
 				drawerStyle: { width: width * 0.5 },
 				headerRight: () => (
-					<TouchableOpacity>
+					<TouchableOpacity style={{ marginRight: spaces.sm }}>
 						<Ionicons name="search" size={24} color="black" />
 					</TouchableOpacity>
 				),
-				headerRightContainerStyle: {
-					marginRight: spaces.sm,
-					marginLeft: -10,
-				},
 			}}
 			drawerContent={props => <LogoutOption {...props} />}>
 			<Drawer.Screen
