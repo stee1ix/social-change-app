@@ -4,10 +4,10 @@ import HomeScreen from './home.screen';
 import { Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, spaces } from '../../assets/values';
+import ProfileScreen from '../profile/profile.screen';
 
 const Tab = createBottomTabNavigator();
 
-const ProfileScreen = () => <Text>ProfileScreen</Text>;
 const CreatePost = () => <Text>CreatePost</Text>;
 
 const HomeNavigator = () => {

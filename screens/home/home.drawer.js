@@ -79,7 +79,7 @@ const HomeDrawer = () => {
 				component={HomeNavigator}
 				options={{
 					drawerLabel: () => (
-						<Option title="HOME" icon="home-outline" />
+						<Option title="HOME" icon="home-sharp" />
 					),
 				}}
 			/>
@@ -89,7 +89,7 @@ const HomeDrawer = () => {
 				component={EditScreen}
 				options={{
 					drawerLabel: () => (
-						<Option title="EDIT PROFILE" icon="pencil" />
+						<Option title="EDIT PROFILE" icon="pencil-sharp" />
 					),
 				}}
 			/>
@@ -98,7 +98,7 @@ const HomeDrawer = () => {
 				component={SettingScreen}
 				options={{
 					drawerLabel: () => (
-						<Option title="SETTINGS" icon="settings-outline" />
+						<Option title="SETTINGS" icon="settings-sharp" />
 					),
 				}}
 			/>

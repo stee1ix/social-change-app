@@ -16,7 +16,6 @@ const StoryItem = ({ item, index }) => {
 			<Avatar
 				source={require('../../../assets/images/storyIcon.png')}
 				rounded
-				title="S"
 				avatarStyle={!seen ? styles.notSeen : null}
 				containerStyle={styles.containerStyle}
 			/>

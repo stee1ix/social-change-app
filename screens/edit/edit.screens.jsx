@@ -21,7 +21,7 @@ const EditScreen = () => {
 				<View>
 					<Avatar
 						source={require('../../assets/images/propic.jpg')}
-						size={80}
+						size={70}
 						rounded
 						onPress={() => null}
 					/>
