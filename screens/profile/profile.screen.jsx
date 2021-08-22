@@ -72,7 +72,7 @@ const ProfileScreen = () => {
 						FOLLOW
 					</Button>
 				</View>
-				<Divider style={{ marginBottom: spaces.sm }} />
+				<Divider style={{ marginBottom: spaces.md }} />
 				<View style={styles.postsContainer}>
 					{images.map((item, index) => {
 						return (
