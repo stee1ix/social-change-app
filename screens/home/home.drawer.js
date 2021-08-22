@@ -17,6 +17,12 @@ const width = Dimensions.get('window').width;
 
 const Drawer = createDrawerNavigator();
 
+const SearchScreen = () => (
+	<View>
+		<Text>Search Screen</Text>
+	</View>
+);
+
 const LogoutOption = props => {
 	return (
 		<DrawerContentScrollView
@@ -69,7 +75,11 @@ const HomeDrawer = () => {
 				drawerStyle: { width: width * 0.5 },
 				headerRight: () => (
 					<TouchableOpacity style={{ marginRight: spaces.sm }}>
-						<Ionicons name="search" size={24} color="black" />
+						<Ionicons
+							name="chatbox-ellipses-outline"
+							size={26}
+							color="black"
+						/>
 					</TouchableOpacity>
 				),
 			}}
@@ -81,6 +91,13 @@ const HomeDrawer = () => {
 					drawerLabel: () => (
 						<Option title="HOME" icon="home-sharp" />
 					),
+				}}
+			/>
+			<Drawer.Screen
+				name="SearchScreen"
+				component={SearchScreen}
+				options={{
+					drawerLabel: () => <Option title="SEARCH" icon="search" />,
 				}}
 			/>
 
