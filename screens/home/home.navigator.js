@@ -5,10 +5,9 @@ import { Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, spaces } from '../../assets/values';
 import ProfileScreen from '../profile/profile.screen';
+import AddPost from '../addPost/addPost.screen';
 
 const Tab = createBottomTabNavigator();
-
-const CreatePost = () => <Text>CreatePost</Text>;
 
 const HomeNavigator = () => {
 	return (
@@ -38,17 +37,17 @@ const HomeNavigator = () => {
 			})}>
 			<Tab.Screen name="HomeScreen" component={HomeScreen} />
 			<Tab.Screen
-				name="CreatePost"
-				component={CreatePost}
+				name="AddPost"
+				component={AddPost}
 				options={{
 					tabBarIcon: () => (
 						<Ionicons
 							name="add-circle"
-							size={60}
+							size={50}
 							color={colors.blue}
 						/>
 					),
-					tabBarIconStyle: { top: -20 },
+					// tabBarIconStyle: { top: -20 },
 				}}
 			/>
 			<Tab.Screen name="ProfileScreen" component={ProfileScreen} />
@@ -60,11 +59,11 @@ export default HomeNavigator;
 
 const styles = StyleSheet.create({
 	tabBarStyle: {
-		position: 'absolute',
-		height: 50,
-		right: spaces.sm,
-		left: spaces.sm,
-		bottom: spaces.sm,
-		borderRadius: 10,
+		// position: 'absolute',
+		height: 60,
+		// right: spaces.sm,
+		// left: spaces.sm,
+		// bottom: spaces.sm,
+		// borderRadius: 10,
 	},
 });
