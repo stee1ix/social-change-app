@@ -51,7 +51,7 @@ const ProfileScreen = () => {
 									Cristiano Ronaldo
 								</Text>
 								<Text style={styles.usernameText}>
-									cr7official
+									@cr7official
 								</Text>
 							</View>
 						</View>
@@ -89,7 +89,7 @@ const ProfileScreen = () => {
 						);
 					})}
 				</View>
-				<View style={{ height: 80 }} />
+				<View style={{ height: spaces.sm }} />
 			</View>
 		</ScrollView>
 	);
@@ -107,11 +107,10 @@ const styles = StyleSheet.create({
 	nameImageWrapper: {
 		justifyContent: 'center',
 		alignItems: 'center',
-		marginBottom: spaces.ssm,
 	},
 	nameWrapper: {
 		marginLeft: spaces.smd,
-		marginTop: spaces.sm,
+		marginTop: spaces.md,
 		alignItems: 'center',
 	},
 	nameText: {
@@ -122,8 +121,8 @@ const styles = StyleSheet.create({
 	followContainer: {
 		flexDirection: 'row',
 		justifyContent: 'space-evenly',
-		alignItems: 'center',
-		marginBottom: spaces.sm,
+		alignItems: 'flex-start',
+		marginBottom: spaces.md,
 	},
 	followWrapper: {
 		alignItems: 'center',
