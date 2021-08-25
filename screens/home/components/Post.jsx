@@ -7,6 +7,7 @@ import {
 	Dimensions,
 	TouchableOpacity,
 	TouchableHighlight,
+	TouchableWithoutFeedback,
 } from 'react-native';
 import { spaces } from '../../../assets/values';
 import {
@@ -31,20 +32,24 @@ const Post = ({ onPress }) => {
 					/>
 					<Text style={styles.username}>user_123</Text>
 				</View>
-				<TouchableOpacity style={styles.postOptionsIcon}>
-					<MaterialCommunityIcons
-						name="dots-vertical"
-						size={20}
-						color="black"
-					/>
+				<TouchableOpacity
+					onPress={() => null}
+					style={styles.postOptionsIcon}>
+					<View>
+						<MaterialCommunityIcons
+							name="dots-vertical"
+							size={20}
+							color="black"
+						/>
+					</View>
 				</TouchableOpacity>
 			</View>
-			<TouchableOpacity onPress={onPress}>
+			<TouchableWithoutFeedback onPress={onPress}>
 				<Image
 					source={require('../../../assets/images/post.png')}
 					style={styles.image}
 				/>
-			</TouchableOpacity>
+			</TouchableWithoutFeedback>
 			<View style={styles.optionsWrapper}>
 				<TouchableOpacity
 					onPress={() => setliked(!liked)}
@@ -93,7 +98,10 @@ const styles = StyleSheet.create({
 		marginHorizontal: spaces.sm,
 	},
 	username: {},
-	postOptionsIcon: {},
+	postOptionsIcon: {
+		paddingLeft: 20,
+		// borderWidth: 1,
+	},
 	image: {
 		width: '100%',
 		height: width,
