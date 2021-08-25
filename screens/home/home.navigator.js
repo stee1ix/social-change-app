@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors, spaces } from '../../assets/values';
 import ProfileScreen from '../profile/profile.screen';
 import AddPost from '../addPost/addPost.screen';
+import HomeStack from './home.stack';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +18,7 @@ const HomeNavigator = () => {
 				tabBarIcon: ({ focused, color, size }) => {
 					let iconName;
 
-					if (route.name === 'HomeScreen') {
+					if (route.name === 'HomeStack') {
 						iconName = focused ? 'home-sharp' : 'home-outline';
 					} else if (route.name === 'ProfileScreen') {
 						iconName = focused
@@ -35,7 +36,7 @@ const HomeNavigator = () => {
 				headerShown: false,
 				tabBarStyle: styles.tabBarStyle,
 			})}>
-			<Tab.Screen name="HomeScreen" component={HomeScreen} />
+			<Tab.Screen name="HomeStack" component={HomeStack} />
 			<Tab.Screen
 				name="AddPost"
 				component={AddPost}

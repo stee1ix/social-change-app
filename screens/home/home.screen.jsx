@@ -35,11 +35,15 @@ const HomeScreen = ({ navigation }) => {
 						return (
 							<View key={index}>
 								<Divider style={{ borderBottomWidth: 0 }} />
-								<Post />
+								<Post
+									onPress={() =>
+										navigation.navigate('ViewPost')
+									}
+								/>
 							</View>
 						);
 					})}
-					<View style={{ height: 50 }} />
+					<View style={{ height: spaces.sm }} />
 				</View>
 			</ScrollView>
 		</View>
