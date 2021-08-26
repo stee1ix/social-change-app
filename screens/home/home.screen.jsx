@@ -15,7 +15,13 @@ import { Divider } from 'react-native-paper';
 
 const HomeScreen = ({ navigation }) => {
 	const renderStoriesItem = ({ item, index }) => {
-		return <StoryItem item={item} index={index} />;
+		return (
+			<StoryItem
+				item={item}
+				index={index}
+				onPress={() => navigation.navigate('StoryView')}
+			/>
+		);
 	};
 
 	return (

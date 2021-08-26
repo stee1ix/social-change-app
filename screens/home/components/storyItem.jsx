@@ -3,12 +3,15 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import { colors, spaces } from '../../../assets/values';
 
-const StoryItem = ({ item, index }) => {
+const StoryItem = ({ item, index, onPress }) => {
 	const [seen, setSeen] = useState(false);
 
 	return (
 		<TouchableOpacity
-			onPress={() => setSeen(true)}
+			onPress={() => {
+				onPress();
+				setSeen(true);
+			}}
 			style={[
 				styles.storyItemContainer,
 				index === 0 ? { marginLeft: spaces.sm } : null,
