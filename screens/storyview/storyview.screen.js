@@ -1,11 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Avatar } from 'react-native-elements';
-import { spaces } from '../../assets/values';
+import { ProgressBar } from 'react-native-paper';
+import { colors, spaces } from '../../assets/values';
 
 const StoryView = ({ navigation }) => {
-	const counter = useRef(0);
+	const [count, setCount] = useState(0);
 
 	useEffect(() => {
 		navigation
@@ -20,7 +21,7 @@ const StoryView = ({ navigation }) => {
 
 		const timeout = setTimeout(() => {
 			navigation.goBack();
-		}, 3000);
+		}, 3400);
 
 		return () => {
 			navigation
@@ -34,11 +35,22 @@ const StoryView = ({ navigation }) => {
 		};
 	}, []);
 
+	useEffect(() => {
+		const counter = setInterval(() => {
+			setCount(count + 0.03);
+		}, 10);
+
+		return () => {
+			clearInterval(counter);
+		};
+	}, [count]);
+
 	return (
 		<ImageBackground
 			source={require('../../assets/images/background.jpeg')}
 			style={styles.imageStyle}>
 			<SafeAreaView>
+				<ProgressBar progress={count} color={colors.blue} />
 				<View style={styles.topBarWrapper}>
 					<Avatar
 						source={require('../../assets/images/storyIcon.png')}
