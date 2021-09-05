@@ -12,16 +12,11 @@ import { AntDesign, Ionicons } from '@expo/vector-icons';
 import SettingScreen from '../settings/settings.screen';
 import EditScreen from '../edit/edit.screens';
 import { TouchableOpacity } from 'react-native';
+import SearchScreen from '../search/search.screen';
 
 const width = Dimensions.get('window').width;
 
 const Drawer = createDrawerNavigator();
-
-const SearchScreen = () => (
-	<View>
-		<Text>Search Screen</Text>
-	</View>
-);
 
 const LogoutOption = props => {
 	return (
@@ -64,7 +59,7 @@ const Option = ({ title, icon }) => {
 	);
 };
 
-const HomeDrawer = () => {
+const HomeDrawer = ({ navigation }) => {
 	return (
 		<Drawer.Navigator
 			initialRouteName="HomeNavigator"
@@ -74,7 +69,9 @@ const HomeDrawer = () => {
 				drawerType: 'slide',
 				drawerStyle: { width: width * 0.5 },
 				headerRight: () => (
-					<TouchableOpacity style={{ marginRight: spaces.sm }}>
+					<TouchableOpacity
+						style={{ marginRight: spaces.sm }}
+						onPress={() => navigation.navigate('ChatScreen')}>
 						<Ionicons
 							name="chatbox-ellipses-outline"
 							size={26}
@@ -100,7 +97,6 @@ const HomeDrawer = () => {
 					drawerLabel: () => <Option title="SEARCH" icon="search" />,
 				}}
 			/>
-
 			<Drawer.Screen
 				name="EditScreen"
 				component={EditScreen}
