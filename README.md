@@ -1,10 +1,10 @@
 # Social Change
 
 ## Screenshots
-![1](https://user-images.githubusercontent.com/54289882/133407948-6fb2c307-ed2e-42eb-8d0c-495d022564bb.png)
-![2](https://user-images.githubusercontent.com/54289882/133407965-8a2029db-97dc-4195-8daa-3026e8c6b161.png)
-![3](https://user-images.githubusercontent.com/54289882/133407973-79ed8a52-80bf-4d33-8fcb-a94b123ca040.png)
-![4](https://user-images.githubusercontent.com/54289882/133407986-8dedbba1-241b-4a24-bd12-98c4be89695a.png)
-![5](https://user-images.githubusercontent.com/54289882/133407991-edbd1d34-e0da-44ff-bcb1-08d15b09d04e.png)
-![6](https://user-images.githubusercontent.com/54289882/133407992-ff3d8b85-bc24-4b55-a520-71534f994cf5.png)
-![7](https://user-images.githubusercontent.com/54289882/133408004-fcf17fd2-829b-42f5-a95a-2cc76f996ff9.png)
+![1](https://user-images.githubusercontent.com/54289882/133475879-16913c86-9ece-4cfa-a4bc-2f7ba415a37e.png)
+![2](https://user-images.githubusercontent.com/54289882/133475888-a6bc219a-3011-4110-b412-6510e1485f80.png)
+![3](https://user-images.githubusercontent.com/54289882/133475890-cd2a6180-87b4-464c-8c01-dd87c634614d.png)
+![4](https://user-images.githubusercontent.com/54289882/133475894-21fae80c-5cc1-4a64-b6c7-75253cb32906.png)
+![5](https://user-images.githubusercontent.com/54289882/133475905-69d871aa-0be1-4aa2-9d23-2a5e61695c69.png)
+![6](https://user-images.githubusercontent.com/54289882/133475909-39f08417-f1b1-41b2-8378-c3a8f4d4e240.png)
+![7](https://user-images.githubusercontent.com/54289882/133475913-99cfcc83-bffb-4444-815b-7cb69405e1ee.png)
