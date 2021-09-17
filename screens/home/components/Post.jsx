@@ -6,21 +6,25 @@ import {
 	Image,
 	Dimensions,
 	TouchableOpacity,
-	TouchableHighlight,
 	TouchableWithoutFeedback,
 } from 'react-native';
+import { Menu, TouchableRipple } from 'react-native-paper';
 import { spaces } from '../../../assets/values';
 import {
 	FontAwesome,
 	Feather,
 	MaterialCommunityIcons,
 } from '@expo/vector-icons';
-import { TouchableRipple } from 'react-native-paper';
 
 const width = Dimensions.get('window').width;
 
-const Post = ({ onPress }) => {
+const Post = ({ onPress, id }) => {
 	const [liked, setliked] = useState(true);
+	const [menuVisible, setMenuVetvisible] = useState(false);
+
+	const openMenu = () => setMenuVetvisible(true);
+
+	const closeMenu = () => setMenuVetvisible(false);
 
 	return (
 		<View style={styles.container}>
@@ -32,28 +36,37 @@ const Post = ({ onPress }) => {
 					/>
 					<Text style={styles.username}>user_123</Text>
 				</View>
-				<TouchableOpacity
-					onPress={() => null}
-					style={styles.postOptionsIcon}>
-					<View>
-						<MaterialCommunityIcons
-							name="dots-vertical"
-							size={20}
-							color="black"
-						/>
-					</View>
-				</TouchableOpacity>
+
+				<Menu
+					visible={menuVisible}
+					onDismiss={closeMenu}
+					anchor={
+						<TouchableOpacity
+							onPress={openMenu}
+							style={styles.postOptionsIcon}>
+							<MaterialCommunityIcons
+								name="dots-vertical"
+								size={20}
+								color="black"
+								style={styles.postOptionsIcon}
+							/>
+						</TouchableOpacity>
+					}>
+					<Menu.Item onPress={() => {}} title="Edit" />
+					<Menu.Item onPress={() => {}} title="Delete" />
+				</Menu>
 			</View>
 			<TouchableWithoutFeedback onPress={onPress}>
 				<Image
-					source={require('../../../assets/images/post.png')}
+					// source={require('../../../assets/images/post.png')}
+					source={{ uri: `https://picsum.photos/id/${id}/300` }}
 					style={styles.image}
 				/>
 			</TouchableWithoutFeedback>
 			<View style={styles.optionsWrapper}>
 				<TouchableOpacity
 					onPress={() => setliked(!liked)}
-					style={{ marginHorizontal: spaces.sm }}>
+					style={{ marginHorizontal: spaces.ssm }}>
 					{liked ? (
 						<FontAwesome name="heart" size={24} color="red" />
 					) : (
@@ -95,18 +108,19 @@ const styles = StyleSheet.create({
 		borderRadius: 50,
 		width: 30,
 		height: 30,
-		marginHorizontal: spaces.sm,
+		marginHorizontal: spaces.ssm,
 	},
 	username: {},
 	postOptionsIcon: {
-		paddingLeft: 20,
+		paddingLeft: spaces.sm,
 		// borderWidth: 1,
+		// borderRadius: 50,
 	},
 	image: {
 		width: '100%',
 		height: width,
 		resizeMode: 'contain',
-		borderRadius: spaces.sm,
+		borderRadius: spaces.ssm,
 	},
 	optionsWrapper: {
 		flexDirection: 'row',
@@ -114,7 +128,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	captionWrapper: {
-		paddingHorizontal: spaces.sm,
+		paddingHorizontal: spaces.ssm,
 	},
 	captionText: {},
 });

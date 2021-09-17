@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Avatar } from 'react-native-elements';
@@ -47,7 +47,8 @@ const StoryView = ({ navigation }) => {
 
 	return (
 		<ImageBackground
-			source={require('../../assets/images/background.jpeg')}
+			// source={require('../../assets/images/background.jpeg')}
+			source={{ uri: `https://picsum.photos/id/11/300` }}
 			style={styles.imageStyle}>
 			<SafeAreaView>
 				<ProgressBar progress={count} color={colors.blue} />

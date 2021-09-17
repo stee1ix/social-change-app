@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -8,54 +8,79 @@ import {
 	Dimensions,
 	ScrollView,
 } from 'react-native';
-import { Button, TextInput, Surface } from 'react-native-paper';
+import { Button, TextInput, FAB, Portal } from 'react-native-paper';
 import { colors, spaces, font } from '../../assets/values';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Ionicons, Feather } from '@expo/vector-icons';
 
 const width = Dimensions.get('window').width;
 
 const AddPost = () => {
-	return (
-		<ScrollView style={styles.container}>
-			<View style={styles.headerWrapper}>
-				<Text style={styles.headerText}>Create New</Text>
-				<Button
-					mode="contained"
-					style={styles.submitButton}
-					onPress={() => null}>
-					POST
-				</Button>
-			</View>
-			<TextInput
-				mode="flat"
-				style={styles.captionInput}
-				underlineColor="transparent"
-				multiline={true}
-				theme={{ colors: { primary: colors.blue } }}
-				placeholder="Write caption here..."
-				selectionColor={colors.blue}
-			/>
+	const [imageSelected, setImageSelected] = useState(false);
 
-			<View style={styles.imageSelectWrapper}>
-				<View style={styles.imageTitleWrapper}>
-					<Text style={styles.imageText}>Image</Text>
-					<TouchableNativeFeedback>
-						<View style={styles.imageSelectButton}>
-							<MaterialCommunityIcons
-								name="plus"
-								size={30}
-								color={colors.blue}
-							/>
-						</View>
-					</TouchableNativeFeedback>
-				</View>
-				<Image
-					source={require('../../assets/images/post.png')}
-					style={styles.imageStyle}
+	// FAB state
+	const [imageSelectFabVisible, setImageSelectFabVisible] = useState({
+		open: false,
+	});
+
+	const onImageSelectFabVisibleChange = ({ open }) =>
+		setImageSelectFabVisible({ open });
+
+	const { open } = imageSelectFabVisible;
+	// FAB state
+
+	return (
+		<>
+			<ScrollView style={styles.container}>
+				<View style={styles.headerWrapper}></View>
+				<TextInput
+					mode="flat"
+					style={styles.captionInput}
+					// underlineColor="transparent"
+					multiline={true}
+					autoFocus={true}
+					theme={{ colors: { primary: colors.blue } }}
+					placeholder="Write caption here..."
+					selectionColor={colors.blue}
 				/>
-			</View>
-			<View style={{ height: spaces.sm }} />
-		</ScrollView>
+				<View style={styles.imageWrapper}>
+					{!imageSelected ? (
+						<Ionicons
+							name="camera-outline"
+							size={300}
+							color="#c9c9c9"
+							style={styles.dummyImage}
+						/>
+					) : (
+						<Image
+							source={require('../../assets/images/post.png')}
+							style={styles.imageStyle}
+						/>
+					)}
+				</View>
+
+				<View style={{ height: spaces.sm }} />
+			</ScrollView>
+			<FAB.Group
+				open={open}
+				icon="image"
+				actions={[
+					{
+						icon: 'camera',
+						onPress: () => {},
+					},
+					{
+						icon: 'folder-image',
+						onPress: () => {},
+						small: false,
+					},
+				]}
+				color="#fff"
+				onStateChange={onImageSelectFabVisibleChange}
+				// onPress={() => {}}
+				style={styles.fabIconContainer}
+				fabStyle={styles.imagePickFab}
+			/>
+		</>
 	);
 };
 
@@ -68,7 +93,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: spaces.sm,
 	},
 	headerWrapper: {
-		marginVertical: spaces.sm,
+		marginVertical: spaces.ssm,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
@@ -84,25 +109,21 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		paddingHorizontal: -spaces.sm,
 	},
-	imageSelectWrapper: {},
-	imageTitleWrapper: {
-		flexDirection: 'row',
+	imageWrapper: {
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		marginVertical: spaces.sm,
+		marginVertical: spaces.md,
 	},
-	imageText: {
-		fontSize: font.lg,
-	},
-	imageSelectButton: {
-		width: 40,
-		height: 40,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
+	dummyImage: {},
 	imageStyle: {
 		width: '100%',
 		height: width - spaces.sm - spaces.sm,
-		borderRadius: 10,
+		borderRadius: spaces.smd,
+	},
+	fabIconContainer: {
+		paddingBottom: spaces.sm,
+	},
+	imagePickFab: {
+		backgroundColor: colors.blue,
 	},
 });

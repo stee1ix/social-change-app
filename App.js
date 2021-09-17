@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider as PaperProvider } from 'react-native-paper';
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -14,30 +15,33 @@ export default function App() {
 
 	return (
 		<>
+			<StatusBar style="dark" backgroundColor="#fff" />
 			<SafeAreaProvider>
-				<NavigationContainer>
-					<Stack.Navigator
-						initialRouteName="LoginScreen"
-						screenOptions={{ headerShown: false }}>
-						{!auth ? (
-							<>
+				<PaperProvider>
+					<NavigationContainer>
+						<Stack.Navigator
+							initialRouteName="LoginScreen"
+							screenOptions={{ headerShown: false }}>
+							{!auth ? (
+								<>
+									<Stack.Screen
+										name="LoginScreen"
+										component={LoginScreen}
+									/>
+									<Stack.Screen
+										name="RegisterScreen"
+										component={RegisterScreen}
+									/>
+								</>
+							) : (
 								<Stack.Screen
-									name="LoginScreen"
-									component={LoginScreen}
+									name="HomeDrawer"
+									component={HomeDrawer}
 								/>
-								<Stack.Screen
-									name="RegisterScreen"
-									component={RegisterScreen}
-								/>
-							</>
-						) : (
-							<Stack.Screen
-								name="HomeDrawer"
-								component={HomeDrawer}
-							/>
-						)}
-					</Stack.Navigator>
-				</NavigationContainer>
+							)}
+						</Stack.Navigator>
+					</NavigationContainer>
+				</PaperProvider>
 			</SafeAreaProvider>
 		</>
 	);

@@ -54,7 +54,7 @@ const EditScreen = () => {
 			<TextInput
 				mode="outlined"
 				label="Date of Birth"
-				value={date.toLocaleDateString()}
+				value={date.toISOString().slice(0, 10)}
 				editable={false}
 				style={styles.inputStyles}
 				right={
