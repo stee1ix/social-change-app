@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './home.screen';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, spaces } from '../../assets/values';
 import ProfileScreen from '../profile/profile.screen';
@@ -24,6 +24,11 @@ const HomeNavigator = () => {
 						iconName = focused
 							? 'ios-person-sharp'
 							: 'ios-person-outline';
+					} else if (route.name === 'AddPost') {
+						iconName = focused
+							? 'ios-add-circle-sharp'
+							: 'ios-add-circle-outline';
+						size = 35;
 					}
 
 					return (
@@ -41,13 +46,14 @@ const HomeNavigator = () => {
 				name="AddPost"
 				component={AddPost}
 				options={{
-					tabBarIcon: () => (
-						<Ionicons
-							name="add-circle"
-							size={50}
-							color={colors.blue}
-						/>
-					),
+					unmountOnBlur: true,
+					// tabBarIcon: () => (
+					// 	<Ionicons
+					// 		name="add-circle-outline"
+					// 		size={50}
+					// 		color={colors.blue}
+					// 	/>
+					// ),
 					// tabBarIconStyle: { top: -20 },
 				}}
 			/>

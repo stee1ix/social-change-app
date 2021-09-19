@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	StyleSheet,
 	Text,
 	View,
-	TouchableNativeFeedback,
 	Image,
 	Dimensions,
 	ScrollView,
+	TouchableOpacity,
 } from 'react-native';
 import { Button, TextInput, FAB, Portal } from 'react-native-paper';
 import { colors, spaces, font } from '../../assets/values';
@@ -14,7 +14,7 @@ import { MaterialCommunityIcons, Ionicons, Feather } from '@expo/vector-icons';
 
 const width = Dimensions.get('window').width;
 
-const AddPost = () => {
+const AddPost = ({ navigation }) => {
 	const [imageSelected, setImageSelected] = useState(false);
 
 	// FAB state
@@ -28,12 +28,47 @@ const AddPost = () => {
 	const { open } = imageSelectFabVisible;
 	// FAB state
 
+	//changing header bar right icon from chat to tick
+	useEffect(() => {
+		console.log('Mounted');
+		navigation.getParent().setOptions({
+			headerRight: () => (
+				<TouchableOpacity
+					style={{ marginRight: spaces.sm }}
+					onPress={() => {}}>
+					<Ionicons
+						name="md-checkmark-sharp"
+						size={26}
+						color={colors.blue}
+					/>
+				</TouchableOpacity>
+			),
+		});
+
+		return () => {
+			console.log('Unmounted');
+			navigation.getParent().setOptions({
+				headerRight: () => (
+					<TouchableOpacity
+						style={{ marginRight: spaces.sm }}
+						onPress={() => {}}>
+						<Ionicons
+							name="chatbox-ellipses-outline"
+							size={26}
+							color="black"
+						/>
+					</TouchableOpacity>
+				),
+			});
+		};
+	}, []);
+
 	return (
 		<>
 			<ScrollView style={styles.container}>
 				<View style={styles.headerWrapper}></View>
 				<TextInput
-					mode="flat"
+					mode="outlined"
 					style={styles.captionInput}
 					// underlineColor="transparent"
 					multiline={true}
@@ -44,10 +79,10 @@ const AddPost = () => {
 				/>
 				<View style={styles.imageWrapper}>
 					{!imageSelected ? (
-						<Ionicons
-							name="camera-outline"
+						<Feather
+							name="upload"
 							size={300}
-							color="#c9c9c9"
+							color="#e9e9e9"
 							style={styles.dummyImage}
 						/>
 					) : (
@@ -90,28 +125,25 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: '#fff',
 		flex: 1,
-		paddingHorizontal: spaces.sm,
 	},
 	headerWrapper: {
-		marginVertical: spaces.ssm,
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
+		// marginVertical: spaces.ssm,
+		// flexDirection: 'row',
+		// justifyContent: 'space-between',
+		// alignItems: 'center',
 	},
 	submitButton: {
 		backgroundColor: colors.blue,
 	},
-	headerText: {
-		fontSize: font.xl,
-		marginVertical: spaces.sm,
-	},
 	captionInput: {
 		backgroundColor: '#fff',
-		paddingHorizontal: -spaces.sm,
+		// paddingHorizontal: -spaces.sm,
+		marginHorizontal: spaces.sm,
+		marginTop: spaces.sm,
 	},
 	imageWrapper: {
-		alignItems: 'center',
-		justifyContent: 'space-between',
+		flexDirection: 'row',
+		justifyContent: 'center',
 		marginVertical: spaces.md,
 	},
 	dummyImage: {},
