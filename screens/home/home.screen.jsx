@@ -38,7 +38,6 @@ const HomeScreen = ({ navigation }) => {
 				</View>
 				<View style={styles.postsWrapper}>
 					{postsData.map((item, index) => {
-						console.log(item.id);
 						return (
 							<View key={index}>
 								<Divider style={{ borderBottomWidth: 0 }} />

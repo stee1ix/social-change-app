@@ -39,7 +39,7 @@ const HomeNavigator = () => {
 				tabBarHideOnKeyboard: true,
 				tabBarShowLabel: false,
 				headerShown: false,
-				tabBarStyle: styles.tabBarStyle,
+				// tabBarStyle: styles.tabBarStyle,
 			})}>
 			<Tab.Screen name="HomeStack" component={HomeStack} />
 			<Tab.Screen
@@ -67,7 +67,7 @@ export default HomeNavigator;
 const styles = StyleSheet.create({
 	tabBarStyle: {
 		// position: 'absolute',
-		height: 60,
+		// height: 60,
 		// right: spaces.sm,
 		// left: spaces.sm,
 		// bottom: spaces.sm,

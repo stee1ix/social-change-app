@@ -30,7 +30,6 @@ const AddPost = ({ navigation }) => {
 
 	//changing header bar right icon from chat to tick
 	useEffect(() => {
-		console.log('Mounted');
 		navigation.getParent().setOptions({
 			headerRight: () => (
 				<TouchableOpacity
@@ -46,12 +45,11 @@ const AddPost = ({ navigation }) => {
 		});
 
 		return () => {
-			console.log('Unmounted');
 			navigation.getParent().setOptions({
 				headerRight: () => (
 					<TouchableOpacity
 						style={{ marginRight: spaces.sm }}
-						onPress={() => {}}>
+						onPress={() => navigation.navigate('ChatScreen')}>
 						<Ionicons
 							name="chatbox-ellipses-outline"
 							size={26}

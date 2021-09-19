@@ -38,7 +38,7 @@ const EditScreen = () => {
 			<TextInput
 				mode="outlined"
 				label="Name"
-				defaultValue="User Kumar"
+				defaultValue=""
 				textContentType="name"
 				style={styles.inputStyles}
 				theme={{ colors: { primary: colors.blue } }}
@@ -46,7 +46,7 @@ const EditScreen = () => {
 			<TextInput
 				mode="outlined"
 				label="Bio"
-				defaultValue="helloo my name ishelloo my name ishelloo my name is"
+				defaultValue=""
 				multiline={true}
 				style={styles.inputStyles}
 				theme={{ colors: { primary: colors.blue } }}

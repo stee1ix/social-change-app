@@ -29,7 +29,9 @@ const StoryView = ({ navigation }) => {
 				.getParent()
 				.setOptions({ headerShown: true });
 
-			navigation.getParent().setOptions({ tabBarStyle: { height: 60 } });
+			navigation
+				.getParent()
+				.setOptions({ tabBarStyle: { display: 'flex' } });
 
 			clearTimeout(timeout);
 		};
