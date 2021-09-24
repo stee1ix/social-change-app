@@ -41,8 +41,9 @@ const Post = ({ onPress, id }) => {
 					visible={menuVisible}
 					onDismiss={closeMenu}
 					anchor={
-						<TouchableOpacity
+						<TouchableRipple
 							onPress={openMenu}
+							borderless={true}
 							style={styles.postOptionsIcon}>
 							<MaterialCommunityIcons
 								name="dots-vertical"
@@ -50,7 +51,7 @@ const Post = ({ onPress, id }) => {
 								color="black"
 								style={styles.postOptionsIcon}
 							/>
-						</TouchableOpacity>
+						</TouchableRipple>
 					}>
 					<Menu.Item onPress={() => {}} title="Edit" />
 					<Menu.Item onPress={() => {}} title="Delete" />
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
 	postOptionsIcon: {
 		paddingLeft: spaces.sm,
 		// borderWidth: 1,
-		// borderRadius: 50,
+		borderRadius: 50,
 	},
 	image: {
 		width: '100%',

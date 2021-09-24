@@ -61,14 +61,14 @@ const ProfileScreen = () => {
 						</View>
 					</View>
 					<Text style={styles.bioText}>
-						I'm the best footballer in the world😎 I'm the best
-						footballer in the world🐋 I'm the best footballer in the
-						world👽
+						I'm the best footballer in the world I'm the best
+						footballer in the world I'm the best footballer in the
+						world
 					</Text>
 					<Button
 						mode="contained"
 						style={styles.followButton}
-						onPress={() => null}>
+						onPress={() => {}}>
 						FOLLOW
 					</Button>
 				</View>
@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
 		fontSize: font.xl,
 	},
 	bioText: {
+		textAlign: 'center',
 		marginHorizontal: spaces.ssm,
 	},
 	followButton: {

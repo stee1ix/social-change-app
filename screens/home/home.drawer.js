@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Dimensions, View, Image } from 'react-native';
+import { Text, Dimensions, View, Image, LogBox } from 'react-native';
 import {
 	createDrawerNavigator,
 	DrawerContentScrollView,
@@ -13,6 +13,9 @@ import SettingScreen from '../settings/settings.screen';
 import EditScreen from '../edit/edit.screens';
 import { TouchableOpacity } from 'react-native';
 import SearchScreen from '../search/search.screen';
+
+LogBox.ignoreLogs(['Setting a timer']);
+// LogBox.ignoreAllLogs();
 
 const width = Dimensions.get('window').width;
 

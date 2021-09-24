@@ -7,10 +7,13 @@ import {
 	Dimensions,
 	ScrollView,
 	TouchableOpacity,
+	LogBox,
 } from 'react-native';
 import { Button, TextInput, FAB, Portal } from 'react-native-paper';
 import { colors, spaces, font } from '../../assets/values';
 import { MaterialCommunityIcons, Ionicons, Feather } from '@expo/vector-icons';
+import axios from 'axios';
+import { useQuery } from 'react-query';
 
 const width = Dimensions.get('window').width;
 
@@ -28,8 +31,24 @@ const AddPost = ({ navigation }) => {
 	const { open } = imageSelectFabVisible;
 	// FAB state
 
-	//changing header bar right icon from chat to tick
+	const getUsers = async () => {
+		const response = await axios.get(
+			'https://jsonplaceholder.typicode.com/posts/1/'
+		);
+		return response.data;
+	};
+
+	// const { isLoading, error, data, isSuccess } = useQuery(
+	// 	'testQuery',
+	// 	getUsers
+	// );
+
+	// if (isLoading) console.log('Loading...');
+	// if (error) console.log('error');
+	// if (isSuccess) console.log(data);
+
 	useEffect(() => {
+		//changing header bar right icon from chat to tick
 		navigation.getParent().setOptions({
 			headerRight: () => (
 				<TouchableOpacity
@@ -45,6 +64,7 @@ const AddPost = ({ navigation }) => {
 		});
 
 		return () => {
+			//changing header bar right icon back from tick to chat on unmount
 			navigation.getParent().setOptions({
 				headerRight: () => (
 					<TouchableOpacity

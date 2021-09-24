@@ -8,12 +8,13 @@ import {
 	ScrollView,
 	TouchableOpacity,
 } from 'react-native';
-import { spaces } from '../../assets/values';
+import { font, spaces } from '../../assets/values';
 import {
 	FontAwesome,
 	Feather,
 	MaterialCommunityIcons,
 } from '@expo/vector-icons';
+import Comment from './components/comment';
 
 const width = Dimensions.get('window').width;
 
@@ -49,6 +50,15 @@ const ViewPost = () => {
 					interviews. Rachit goes on to explain how once can go about
 				</Text>
 			</View>
+			<View style={styles.commentsSectionWrapper}>
+				<Text style={styles.commentsTitle}>Comments</Text>
+				<Comment />
+				<Comment />
+				<Comment />
+				<Comment />
+				<Comment />
+				<Comment />
+			</View>
 		</ScrollView>
 	);
 };
@@ -74,6 +84,15 @@ const styles = StyleSheet.create({
 	},
 	captionWrapper: {
 		marginHorizontal: spaces.ssm,
+		marginBottom: spaces.sm,
 	},
 	captionText: {},
+	commentsSectionWrapper: {
+		marginHorizontal: spaces.ssm,
+		// marginBottom: spaces.sm,
+	},
+	commentsTitle: {
+		fontSize: font.md,
+		marginBottom: spaces.ssm,
+	},
 });
