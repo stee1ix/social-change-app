@@ -9,7 +9,7 @@ const EditScreen = () => {
 	const [date, setDate] = useState(new Date());
 	const [showDatePicker, setShowDatePicker] = useState(false);
 
-	const onChange = (event, selectedDate) => {
+	const onDateChange = (event, selectedDate) => {
 		const currDate = selectedDate || date;
 		setShowDatePicker(false);
 		setDate(currDate);
@@ -73,7 +73,7 @@ const EditScreen = () => {
 					dateFormat="day month year"
 					display="calendar"
 					value={date}
-					onChange={onChange}
+					onChange={onDateChange}
 				/>
 			)}
 

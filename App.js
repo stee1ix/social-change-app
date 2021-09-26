@@ -14,7 +14,7 @@ const Stack = createNativeStackNavigator();
 const queryClient = new QueryClient();
 
 export default function App() {
-	const [auth, setAuth] = useState(true);
+	const [auth, setAuth] = useState(false);
 
 	return (
 		<>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -11,16 +11,72 @@ import {
 import { TextInput, Button } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
 import { colors, spaces } from '../../assets/values';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import axios from 'axios';
+import { useQuery } from 'react-query';
+import * as SecureStore from 'expo-secure-store';
 
 const width = Dimensions.get('window').width;
 
 const RegisterScreen = ({ navigation }) => {
+	const [date, setDate] = useState(new Date());
+	const [showDatePicker, setShowDatePicker] = useState(false);
+
+	const onDateChange = (event, selectedDate) => {
+		const currDate = selectedDate || date;
+		setShowDatePicker(false);
+		setDate(currDate);
+	};
+
+	const [passwordHidden, setPasswordHidden] = useState(true);
+	const [name, setName] = useState('');
+	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+
+	async function saveToken(key, value) {
+		await SecureStore.setItemAsync(key, value);
+		console.log('saved', value, 'into storage');
+	}
+
+	function registerUserRequest() {
+		return axios.post('http://192.168.43.135:5000/api/user/register', {
+			name,
+			username,
+			email,
+			password,
+			birth_date: date.toISOString().slice(0, 10),
+		});
+	}
+
+	function loginUserRequest() {
+		return axios.post('http://192.168.43.135:5000/api/user/login', {
+			username,
+			password,
+		});
+	}
+
+	async function registerThenLogin() {
+		try {
+			const registerResponse = await registerUserRequest();
+			if (registerResponse.status !== 200) {
+				throw '400 bad request';
+			}
+			const loginResponse = await loginUserRequest();
+			const authToken = loginResponse.headers['auth-token'];
+			saveToken('authToken', authToken);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
 	return (
 		<ImageBackground
 			source={require('../../assets/images/background2.png')}
 			style={styles.backgroundImage}>
 			<KeyboardAvoidingView behavior="height" enabled={true}>
 				<View style={styles.loginWrapper}>
+					{/* Name Input */}
 					<TextInput
 						style={[styles.inputWrapper, { marginTop: 20 }]}
 						mode="flat"
@@ -28,8 +84,9 @@ const RegisterScreen = ({ navigation }) => {
 						textContentType="name"
 						underlineColor="transparent"
 						theme={{ colors: { primary: 'transparent' } }}
+						onChangeText={value => setName(value)}
 					/>
-
+					{/* Email Input */}
 					<TextInput
 						style={styles.inputWrapper}
 						mode="flat"
@@ -37,7 +94,9 @@ const RegisterScreen = ({ navigation }) => {
 						textContentType="emailAddress"
 						underlineColor="transparent"
 						theme={{ colors: { primary: 'transparent' } }}
+						onChangeText={value => setEmail(value)}
 					/>
+					{/* Username Input */}
 					<TextInput
 						style={styles.inputWrapper}
 						mode="flat"
@@ -45,7 +104,9 @@ const RegisterScreen = ({ navigation }) => {
 						textContentType="username"
 						underlineColor="transparent"
 						theme={{ colors: { primary: 'transparent' } }}
+						onChangeText={value => setUsername(value)}
 					/>
+					{/* Password Input */}
 					<TextInput
 						style={styles.inputWrapper}
 						mode="flat"
@@ -53,12 +114,47 @@ const RegisterScreen = ({ navigation }) => {
 						textContentType="newPassword"
 						underlineColor="transparent"
 						theme={{ colors: { primary: 'transparent' } }}
-						secureTextEntry={true}
-						right={<TextInput.Icon size={20} name="eye" />}
+						secureTextEntry={passwordHidden}
+						right={
+							<TextInput.Icon
+								size={20}
+								name="eye"
+								onPress={() =>
+									setPasswordHidden(!passwordHidden)
+								}
+							/>
+						}
+						onChangeText={value => setPassword(value)}
 					/>
+					{/* Date of Birth selection */}
+					<TextInput
+						style={styles.inputWrapper}
+						mode="flat"
+						placeholder="Date of Birth"
+						underlineColor="transparent"
+						editable={false}
+						value={date.toISOString().slice(0, 10)}
+						theme={{ colors: { primary: 'transparent' } }}
+						right={
+							<TextInput.Icon
+								size={20}
+								name="calendar"
+								onPress={() => setShowDatePicker(true)}
+							/>
+						}
+					/>
+					{showDatePicker && (
+						<DateTimePicker
+							mode="date"
+							dateFormat="day month year"
+							display="calendar"
+							value={date}
+							onChange={onDateChange}
+						/>
+					)}
 					<Button
 						mode="contained"
-						onPress={() => console.log('Signed Up')}
+						onPress={() => registerThenLogin()}
 						uppercase={false}
 						color={colors.blue}
 						style={styles.loginButton}>
