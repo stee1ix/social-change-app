@@ -18,6 +18,11 @@ import * as SecureStore from 'expo-secure-store';
 
 const width = Dimensions.get('window').width;
 
+async function saveToken(key, value) {
+	await SecureStore.setItemAsync(key, value);
+	console.log('saved', value, 'into storage');
+}
+
 const RegisterScreen = ({ navigation }) => {
 	const [date, setDate] = useState(new Date());
 	const [showDatePicker, setShowDatePicker] = useState(false);
@@ -33,11 +38,6 @@ const RegisterScreen = ({ navigation }) => {
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-
-	async function saveToken(key, value) {
-		await SecureStore.setItemAsync(key, value);
-		console.log('saved', value, 'into storage');
-	}
 
 	function registerUserRequest() {
 		return axios.post('http://192.168.43.135:5000/api/user/register', {
@@ -63,8 +63,11 @@ const RegisterScreen = ({ navigation }) => {
 				throw '400 bad request';
 			}
 			const loginResponse = await loginUserRequest();
+			console.log(loginResponse);
+			// saving the authenticated user data to storage
 			const authToken = loginResponse.headers['auth-token'];
-			saveToken('authToken', authToken);
+			const username = loginResponse.data;
+			saveToken('user', JSON.stringify({ authToken, username }));
 		} catch (error) {
 			console.log(error);
 		}
@@ -186,6 +189,8 @@ const RegisterScreen = ({ navigation }) => {
 	);
 };
 
+export default RegisterScreen;
+
 const styles = StyleSheet.create({
 	backgroundImage: {
 		flex: 1,
@@ -236,5 +241,3 @@ const styles = StyleSheet.create({
 		color: colors.white9,
 	},
 });
-
-export default RegisterScreen;
