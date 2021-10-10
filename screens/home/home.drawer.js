@@ -13,6 +13,9 @@ import SettingScreen from '../settings/settings.screen';
 import EditScreen from '../edit/edit.screens';
 import { TouchableOpacity } from 'react-native';
 import SearchScreen from '../search/search.screen';
+import { toggleAuthenticated } from '../../redux/user/user.actions';
+import { connect } from 'react-redux';
+import * as SecureStore from 'expo-secure-store';
 
 LogBox.ignoreLogs(['Setting a timer']);
 // LogBox.ignoreAllLogs();
@@ -22,6 +25,16 @@ const width = Dimensions.get('window').width;
 const Drawer = createDrawerNavigator();
 
 const LogoutOption = props => {
+	const logout = async () => {
+		await props.toggleAuthenticated({
+			username: '',
+			authToken: '',
+			authenticated: false,
+		});
+		await SecureStore.deleteItemAsync('user');
+		alert('Logged Out!');
+	};
+
 	return (
 		<DrawerContentScrollView
 			{...props}
@@ -41,7 +54,7 @@ const LogoutOption = props => {
 						<Text style={{ fontSize: font.lg }}>Logout</Text>
 					</View>
 				)}
-				onPress={() => alert('Logged Out')}
+				onPress={() => logout()}
 				style={{
 					flex: 1,
 					justifyContent: 'flex-end',
@@ -62,7 +75,7 @@ const Option = ({ title, icon }) => {
 	);
 };
 
-const HomeDrawer = ({ navigation }) => {
+const HomeDrawer = ({ navigation, toggleAuthenticated }) => {
 	return (
 		<Drawer.Navigator
 			initialRouteName="HomeNavigator"
@@ -83,7 +96,12 @@ const HomeDrawer = ({ navigation }) => {
 					</TouchableOpacity>
 				),
 			}}
-			drawerContent={props => <LogoutOption {...props} />}>
+			drawerContent={props => (
+				<LogoutOption
+					{...props}
+					toggleAuthenticated={toggleAuthenticated}
+				/>
+			)}>
 			<Drawer.Screen
 				name="HomeNavigator"
 				component={HomeNavigator}
@@ -122,4 +140,9 @@ const HomeDrawer = ({ navigation }) => {
 	);
 };
 
-export default HomeDrawer;
+const mapDispatchToProps = dispatch => ({
+	toggleAuthenticated: userAuthObject =>
+		dispatch(toggleAuthenticated(userAuthObject)),
+});
+
+export default connect(null, mapDispatchToProps)(HomeDrawer);

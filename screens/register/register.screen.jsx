@@ -15,6 +15,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import * as SecureStore from 'expo-secure-store';
+import { connect } from 'react-redux';
+import { toggleAuthenticated } from '../../redux/user/user.actions';
 
 const width = Dimensions.get('window').width;
 
@@ -23,7 +25,7 @@ async function saveToken(key, value) {
 	console.log('saved', value, 'into storage');
 }
 
-const RegisterScreen = ({ navigation }) => {
+const RegisterScreen = ({ navigation, toggleAuthenticated }) => {
 	const [date, setDate] = useState(new Date());
 	const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -59,15 +61,21 @@ const RegisterScreen = ({ navigation }) => {
 	async function registerThenLogin() {
 		try {
 			const registerResponse = await registerUserRequest();
+			// console.log(registerResponse);
 			if (registerResponse.status !== 200) {
 				throw '400 bad request';
 			}
 			const loginResponse = await loginUserRequest();
-			console.log(loginResponse);
+			// console.log(loginResponse);
 			// saving the authenticated user data to storage
 			const authToken = loginResponse.headers['auth-token'];
 			const username = loginResponse.data;
 			saveToken('user', JSON.stringify({ authToken, username }));
+			await toggleAuthenticated({
+				username,
+				authToken,
+				authenticated: true,
+			});
 		} catch (error) {
 			console.log(error);
 		}
@@ -118,6 +126,7 @@ const RegisterScreen = ({ navigation }) => {
 						underlineColor="transparent"
 						theme={{ colors: { primary: 'transparent' } }}
 						secureTextEntry={passwordHidden}
+						autoCorrect={false}
 						right={
 							<TextInput.Icon
 								size={20}
@@ -189,7 +198,12 @@ const RegisterScreen = ({ navigation }) => {
 	);
 };
 
-export default RegisterScreen;
+const mapDispatchToProps = dispatch => ({
+	toggleAuthenticated: userAuthObject =>
+		dispatch(toggleAuthenticated(userAuthObject)),
+});
+
+export default connect(null, mapDispatchToProps)(RegisterScreen);
 
 const styles = StyleSheet.create({
 	backgroundImage: {

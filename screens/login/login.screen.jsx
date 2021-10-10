@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	StyleSheet,
 	Text,
@@ -12,10 +12,50 @@ import {
 import { TextInput, Button } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons';
 import { colors, spaces } from '../../assets/values';
+import { connect } from 'react-redux';
+import { toggleAuthenticated } from '../../redux/user/user.actions';
+import * as SecureStore from 'expo-secure-store';
+import axios from 'axios';
 
 const width = Dimensions.get('window').width;
 
-const LoginScreen = ({ navigation }) => {
+async function saveToken(key, value) {
+	await SecureStore.setItemAsync(key, value);
+	console.log('saved', value, 'into storage');
+}
+
+const LoginScreen = ({ navigation, toggleAuthenticated }) => {
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
+	const [passwordHidden, setPasswordHidden] = useState(true);
+
+	function loginUserRequest() {
+		return axios.post('http://192.168.43.135:5000/api/user/login', {
+			username,
+			password,
+		});
+	}
+
+	async function loginUser() {
+		try {
+			const loginResponse = await loginUserRequest();
+			console.log(loginResponse);
+
+			// saving the authenticated user data to storage
+			const authToken = loginResponse.headers['auth-token'];
+			const username = loginResponse.data;
+			saveToken('user', JSON.stringify({ authToken, username }));
+
+			await toggleAuthenticated({
+				username,
+				authToken,
+				authenticated: true,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
 	return (
 		<ImageBackground
 			source={require('../../assets/images/background2.png')}
@@ -36,6 +76,7 @@ const LoginScreen = ({ navigation }) => {
 						textContentType="username"
 						underlineColor="transparent"
 						theme={{ colors: { primary: 'transparent' } }}
+						onChangeText={value => setUsername(value)}
 					/>
 					<TextInput
 						style={styles.inputWrapper}
@@ -44,12 +85,22 @@ const LoginScreen = ({ navigation }) => {
 						textContentType="password"
 						underlineColor="transparent"
 						theme={{ colors: { primary: 'transparent' } }}
-						secureTextEntry={true}
-						right={<TextInput.Icon size={20} name="eye" />}
+						secureTextEntry={passwordHidden}
+						autoCorrect={false}
+						onChangeText={value => setPassword(value)}
+						right={
+							<TextInput.Icon
+								size={20}
+								name="eye"
+								onPress={() =>
+									setPasswordHidden(!passwordHidden)
+								}
+							/>
+						}
 					/>
 					<Button
 						mode="contained"
-						onPress={() => navigation.navigate('HomeDrawer')}
+						onPress={() => loginUser()}
 						uppercase={false}
 						color={colors.blue}
 						style={styles.loginButton}>
@@ -82,6 +133,13 @@ const LoginScreen = ({ navigation }) => {
 		</ImageBackground>
 	);
 };
+
+const mapDispatchToProps = dispatch => ({
+	toggleAuthenticated: userAuthObject =>
+		dispatch(toggleAuthenticated(userAuthObject)),
+});
+
+export default connect(null, mapDispatchToProps)(LoginScreen);
 
 const styles = StyleSheet.create({
 	backgroundImage: {
@@ -149,5 +207,3 @@ const styles = StyleSheet.create({
 		color: colors.white9,
 	},
 });
-
-export default LoginScreen;
