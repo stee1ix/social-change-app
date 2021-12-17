@@ -15,7 +15,7 @@ import { TouchableOpacity } from 'react-native';
 import SearchScreen from '../search/search.screen';
 import { toggleAuthenticated } from '../../redux/user/user.actions';
 import { connect } from 'react-redux';
-import * as SecureStore from 'expo-secure-store';
+import { auth } from '../../firebase/firebase.config';
 
 LogBox.ignoreLogs(['Setting a timer']);
 // LogBox.ignoreAllLogs();
@@ -26,13 +26,8 @@ const Drawer = createDrawerNavigator();
 
 const LogoutOption = props => {
 	const logout = async () => {
-		await props.toggleAuthenticated({
-			username: '',
-			authToken: '',
-			authenticated: false,
-		});
-		await SecureStore.deleteItemAsync('user');
-		alert('Logged Out!');
+		await auth.signOut();
+		props.toggleAuthenticated();
 	};
 
 	return (
@@ -141,8 +136,7 @@ const HomeDrawer = ({ navigation, toggleAuthenticated }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-	toggleAuthenticated: userAuthObject =>
-		dispatch(toggleAuthenticated(userAuthObject)),
+	toggleAuthenticated: () => dispatch(toggleAuthenticated()),
 });
 
 export default connect(null, mapDispatchToProps)(HomeDrawer);

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { QueryClientProvider, QueryClient } from 'react-query';
@@ -7,7 +7,6 @@ import RegisterScreen from './screens/register/register.screen';
 import HomeDrawer from './screens/home/home.drawer';
 import { selectAuthenticated } from './redux/user/user.selectors';
 import { connect } from 'react-redux';
-import * as SecureStore from 'expo-secure-store';
 import { toggleAuthenticated } from './redux/user/user.actions';
 
 const Stack = createNativeStackNavigator();
@@ -15,33 +14,6 @@ const Stack = createNativeStackNavigator();
 const queryClient = new QueryClient();
 
 const NavContainer = ({ authenticated, toggleAuthenticated }) => {
-	async function getAuthenticatedUser(key) {
-		const user = await SecureStore.getItemAsync(key);
-
-		if (user != null) {
-			const data = JSON.parse(user);
-			// setting user in redux
-			await toggleAuthenticated({
-				username: data.username,
-				authToken: data.authToken,
-				authenticated: true,
-			});
-		} else {
-			// setting no user in redux
-			await toggleAuthenticated({
-				username: '',
-				authToken: '',
-				authenticated: false,
-			});
-		}
-	}
-
-	useEffect(() => {
-		getAuthenticatedUser('user');
-	}, []);
-
-	console.log(authenticated ? 'Logged In' : 'Not Logged In');
-
 	return (
 		<NavigationContainer>
 			<QueryClientProvider client={queryClient}>
@@ -77,8 +49,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	toggleAuthenticated: userAuthObject =>
-		dispatch(toggleAuthenticated(userAuthObject)),
+	toggleAuthenticated: () => dispatch(toggleAuthenticated()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavContainer);

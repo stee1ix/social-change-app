@@ -3,8 +3,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as PaperProvider } from 'react-native-paper';
 import React from 'react';
 import { Provider } from 'react-redux';
-import store from './redux/store';
-import NavContainer from './navigationContainer';
+import store from './src/redux/store';
+import NavContainer from './src/navigationContainer';
 
 export default function App() {
 	return (

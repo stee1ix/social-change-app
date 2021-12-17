@@ -8,53 +8,20 @@ import {
 	Dimensions,
 	TouchableOpacity,
 	KeyboardAvoidingView,
+	Keyboard,
 } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
-import { AntDesign } from '@expo/vector-icons';
 import { colors, spaces } from '../../assets/values';
 import { connect } from 'react-redux';
 import { toggleAuthenticated } from '../../redux/user/user.actions';
-import * as SecureStore from 'expo-secure-store';
-import axios from 'axios';
+import { loginUserFirebase } from '../../firebase/auth';
 
 const width = Dimensions.get('window').width;
 
-async function saveToken(key, value) {
-	await SecureStore.setItemAsync(key, value);
-	console.log('saved', value, 'into storage');
-}
-
 const LoginScreen = ({ navigation, toggleAuthenticated }) => {
-	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [passwordHidden, setPasswordHidden] = useState(true);
-
-	function loginUserRequest() {
-		return axios.post('http://192.168.43.135:5000/api/user/login', {
-			username,
-			password,
-		});
-	}
-
-	async function loginUser() {
-		try {
-			const loginResponse = await loginUserRequest();
-			console.log(loginResponse);
-
-			// saving the authenticated user data to storage
-			const authToken = loginResponse.headers['auth-token'];
-			const username = loginResponse.data;
-			saveToken('user', JSON.stringify({ authToken, username }));
-
-			await toggleAuthenticated({
-				username,
-				authToken,
-				authenticated: true,
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	}
 
 	return (
 		<ImageBackground
@@ -72,11 +39,11 @@ const LoginScreen = ({ navigation, toggleAuthenticated }) => {
 					<TextInput
 						style={styles.inputWrapper}
 						mode="flat"
-						placeholder="Username"
-						textContentType="username"
+						placeholder="Email"
+						textContentType="emailAddress"
 						underlineColor="transparent"
 						theme={{ colors: { primary: 'transparent' } }}
-						onChangeText={value => setUsername(value)}
+						onChangeText={value => setEmail(value)}
 					/>
 					<TextInput
 						style={styles.inputWrapper}
@@ -91,7 +58,7 @@ const LoginScreen = ({ navigation, toggleAuthenticated }) => {
 						right={
 							<TextInput.Icon
 								size={20}
-								name="eye"
+								name={passwordHidden ? 'eye-off' : 'eye'}
 								onPress={() =>
 									setPasswordHidden(!passwordHidden)
 								}
@@ -100,14 +67,18 @@ const LoginScreen = ({ navigation, toggleAuthenticated }) => {
 					/>
 					<Button
 						mode="contained"
-						onPress={() => loginUser()}
+						onPress={async () => {
+							Keyboard.dismiss();
+							await loginUserFirebase(email, password);
+							await toggleAuthenticated();
+						}}
 						uppercase={false}
 						color={colors.blue}
 						style={styles.loginButton}>
 						Login
 					</Button>
 					<View style={styles.horizontalRule} />
-					<Text style={styles.otherLoginOptionsText}>
+					{/* <Text style={styles.otherLoginOptionsText}>
 						Or Login Using
 					</Text>
 					<TouchableOpacity style={styles.googleLogo}>
@@ -116,7 +87,7 @@ const LoginScreen = ({ navigation, toggleAuthenticated }) => {
 							size={32}
 							color={colors.white9}
 						/>
-					</TouchableOpacity>
+					</TouchableOpacity> */}
 					<View style={styles.registerMessageWrapper}>
 						<Text style={styles.registerMessage}>
 							Don't have an account?
@@ -135,8 +106,7 @@ const LoginScreen = ({ navigation, toggleAuthenticated }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-	toggleAuthenticated: userAuthObject =>
-		dispatch(toggleAuthenticated(userAuthObject)),
+	toggleAuthenticated: () => dispatch(toggleAuthenticated()),
 });
 
 export default connect(null, mapDispatchToProps)(LoginScreen);
