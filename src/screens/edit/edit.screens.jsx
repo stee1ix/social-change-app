@@ -1,19 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput, FAB } from 'react-native-paper';
 import { colors, font, spaces } from '../../assets/values';
 import { Avatar } from 'react-native-elements';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { editUserProfile, getUserBio } from '../../firebase/userProfile.js';
+import { auth } from '../../firebase/firebase.config';
 
 const EditScreen = () => {
-	const [date, setDate] = useState(new Date());
-	const [showDatePicker, setShowDatePicker] = useState(false);
+	const [name, setName] = useState('');
+	const [bio, setBio] = useState('');
 
-	const onDateChange = (event, selectedDate) => {
-		const currDate = selectedDate || date;
-		setShowDatePicker(false);
-		setDate(currDate);
-	};
+	useEffect(() => {
+		async function fetch() {
+			setName(auth.currentUser.displayName);
+			const userBio = await getUserBio();
+			setBio(userBio);
+		}
+		fetch();
+		return () => null;
+	}, []);
 
 	return (
 		<View style={styles.settingsWrapper}>
@@ -38,49 +43,28 @@ const EditScreen = () => {
 			<TextInput
 				mode="outlined"
 				label="Name"
-				defaultValue=""
 				textContentType="name"
 				style={styles.inputStyles}
 				theme={{ colors: { primary: colors.blue } }}
+				onChangeText={value => setName(value)}
+				value={name}
 			/>
 			<TextInput
 				mode="outlined"
 				label="Bio"
-				defaultValue=""
 				multiline={true}
 				style={styles.inputStyles}
 				theme={{ colors: { primary: colors.blue } }}
+				onChangeText={value => setBio(value)}
+				value={bio}
 			/>
-			<TextInput
-				mode="outlined"
-				label="Date of Birth"
-				value={date.toISOString().slice(0, 10)}
-				editable={false}
-				style={styles.inputStyles}
-				right={
-					<TextInput.Icon
-						name="calendar-check"
-						color={colors.blue}
-						onPress={() => setShowDatePicker(true)}
-					/>
-				}
-				theme={{ colors: { primary: colors.blue } }}
-			/>
-
-			{showDatePicker && (
-				<DateTimePicker
-					mode="date"
-					dateFormat="day month year"
-					display="calendar"
-					value={date}
-					onChange={onDateChange}
-				/>
-			)}
 
 			<FAB
 				icon="check"
 				color="#fff"
-				onPress={() => null}
+				onPress={() => {
+					editUserProfile(name, bio);
+				}}
 				style={styles.doneButton}
 			/>
 		</View>

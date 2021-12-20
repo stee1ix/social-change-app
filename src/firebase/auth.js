@@ -26,6 +26,8 @@ const signupUserFirebase = async (name, username, email, password) => {
 			email,
 			password,
 		});
+
+		auth.currentUser.updateProfile({ displayName: name });
 		console.log(`user ${userCredential.user.uid} created`);
 	} catch (error) {
 		console.log(error);
