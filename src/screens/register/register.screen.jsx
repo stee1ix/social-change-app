@@ -94,8 +94,17 @@ const RegisterScreen = ({ navigation, toggleAuthenticated }) => {
 						mode="contained"
 						onPress={async () => {
 							Keyboard.dismiss();
-							await signupUserFirebase(email, password);
-							toggleAuthenticated();
+							try {
+								await signupUserFirebase(
+									name,
+									username,
+									email,
+									password
+								);
+								toggleAuthenticated();
+							} catch (error) {
+								console.log(error);
+							}
 						}}
 						uppercase={false}
 						color={colors.blue}

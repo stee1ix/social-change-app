@@ -69,8 +69,12 @@ const LoginScreen = ({ navigation, toggleAuthenticated }) => {
 						mode="contained"
 						onPress={async () => {
 							Keyboard.dismiss();
-							await loginUserFirebase(email, password);
-							await toggleAuthenticated();
+							try {
+								await loginUserFirebase(email, password);
+								toggleAuthenticated();
+							} catch (error) {
+								console.log(error);
+							}
 						}}
 						uppercase={false}
 						color={colors.blue}
